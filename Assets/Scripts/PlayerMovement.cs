@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float vertical;
 
+    float moveLimiter = 0.7f;
+
     private void Awake() {
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
@@ -20,7 +22,14 @@ public class PlayerMovement : MonoBehaviour
     void Update ()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical"); 
+        vertical = Input.GetAxisRaw("Vertical");
+
+         if (horizontal != 0 && vertical != 0) // Check for diagonal movement
+        {
+            // limit movement speed diagonally, so you move at 70% speed
+            horizontal *= moveLimiter;
+            vertical *= moveLimiter;
+        }
     }
 
     private void FixedUpdate() {

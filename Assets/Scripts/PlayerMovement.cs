@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float horizontal;
     private float vertical;
+
+    public UnityEvent evento;
 
     float moveLimiter = 0.7f;
 
@@ -35,4 +38,9 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() {
         rigidBody2D.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        evento.Invoke();
+    }
+
 }
